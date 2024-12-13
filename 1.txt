@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center">
+
+    <EditText
+        android:id="@+id/editTextNumber1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter first number"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <EditText
+        android:id="@+id/editTextNumber2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Enter second number"
+        android:inputType="numberDecimal"
+        android:layout_marginBottom="16dp" />
+
+    <Button
+        android:id="@+id/buttonAdd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:onClick="addNumbers"/>
+
+</LinearLayout>
+
+-------------------------
+
+package com.example.addtwonumbers;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
+
+    EditText editTextNumber1, editTextNumber2;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // Initialize EditText fields
+        editTextNumber1 = findViewById(R.id.editTextNumber1);
+        editTextNumber2 = findViewById(R.id.editTextNumber2);
+    }
+
+    // Method to perform addition and show the result in a Toast
+    public void addNumbers(View view) {
+        // Get input from EditText fields
+        String num1 = editTextNumber1.getText().toString();
+        String num2 = editTextNumber2.getText().toString();
+
+        // Check if both numbers are provided
+        if (num1.isEmpty() || num2.isEmpty()) {
+            Toast.makeText(this, "Please enter both numbers", Toast.LENGTH_SHORT).show();
+        } else {
+            try {
+                // Convert the input strings to numbers
+                double number1 = Double.parseDouble(num1);
+                double number2 = Double.parseDouble(num2);
+
+                // Add the numbers
+                double result = number1 + number2;
+
+                // Show the result in a Toast message
+                Toast.makeText(this, "Result: " + result, Toast.LENGTH_LONG).show();
+            } catch (NumberFormatException e) {
+                // Handle invalid input
+                Toast.makeText(this, "Invalid input. Please enter valid numbers.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+}
+
+------------------------
+
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.addtwonumbers">
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/Theme.AddTwoNumbers">
+        <activity
+            android:name=".MainActivity"
+            android:label="Add Two Numbers">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
